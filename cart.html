@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        #display{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #divID{
+            width: 170px;
+            margin-right: 20px;
+            margin-top: 20px;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            
+        }
+        #imageDiv img{
+            height: 170px;
+            width: 170px;
+            
+        }
+        #priceDiv{
+            font-weight: 900;
+            font-size: 15px;
+            display: flex;
+        }
+        #priceDiv div{
+            width: 100px;
+        }
+        #desDiv{
+            font-size: 13px;
+        }
+        .btn{
+            background-color: red;
+            border: none;
+            height: 20px;
+            width: 25px;
+            margin-left: 30px;
+            color: white;
+            font-weight: 800;
+        }
+        #cal{
+            margin-top: 20px;
+            display: flex;
+        }
+        #dis{
+            font-weight: 800;
+            height: 30px;
+        }
+        #calBtn{
+            height: 30px;
+            background-color: rgb(7,213,7);
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+ <h2>My Cart</h2>   
+ <div id="display"></div>
+
+ <section id="cal">
+   <div id="dis"></div>
+   <button id="calBtn">Send Order</button>
+ </section>
+
+<script type="module" src="blogScripts/cart.js"></script>
+</body>
+</html>
