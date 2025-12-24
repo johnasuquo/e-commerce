@@ -1,7 +1,8 @@
 
-
 body{
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 section{
     display: flex;
@@ -106,42 +107,6 @@ section{
 img{
     height: 230px;
     width: 220px;
-
-body{
-
-}
-section{
-    display: flex;
-    margin-bottom: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: white;
-    height: 55px;
-    width: 100vw;
-    margin: 0px;
-}
-
-#profileDiv{
-    margin-bottom: -20px;
-    display: flex;
-}
-#profile{
-    height: 50px;
-    width: 60px;
-    margin-left: 30px;
-    filter: grayscale(-100px);
-
-}
-#menu{
-    height: 30px;
-    width: 30px;
-}
-#menuDiv{
-    background-color: white;
-    display: none;
-
 }
 
 #childDiv{
@@ -344,15 +309,6 @@ img{
     margin-top: 10px;
 }
 
-#rating{
-    
-}
-#desPage{
-}
-
-#ratingPage{
-    
-}
 #pricePage{
   display: flex;
   justify-content: space-between;
