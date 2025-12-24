@@ -1,63 +1,42 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-
-import { 
-    getDatabase,
-    ref,
-    push, 
-    onValue, 
-    remove,
-    query,
-    limitToLast
- } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
-
-
-
-const dataSettings = {
-    databaseURL: "https://shoppingstoredb-default-rtdb.europe-west1.firebasedatabase.app/",
-}
-
-const app = initializeApp(dataSettings);
-const database = getDatabase(app);
-const myDatabase = ref(database, 'myDataInDB');
 
 const display = document.getElementById('display');
 
-onValue(myDatabase, (snapshot)=>{
-   // let divList = '';
-    display.innerHTML = '';
-    let total = 0;
+let arryCart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    snapshot.forEach((item)=>{
-        const value = item.val();
-        const key = item.key;
+display.innerHTML = '';
+let total = 0;
 
-        const div = document.createElement('div')
-        div.id = 'divID'
-        let button = `<button class='btn' data-key=${key}>x</button>`;
+arryCart.forEach((item, index) => {
+    
+    const div = document.createElement('div')
+    div.id = 'divID'
+    
+    div.innerHTML = `<div id="imageDiv">${item.image}</div>
+           <div id="priceDiv"><div>Price: $${item.price}</div><button id="removeBtn">x</button></div></div>
+           <div id="desDiv">${item.description} 
+           
+           
+   `
+   console.log(index)
 
-        div.innerHTML = `<div id="imageDiv">${value.image}</div>
-               <div id="priceDiv"><div>Price: $${value.price}</div>${button}</div>
-               <div id="desDiv">${value.description}</div>
-       `
-        
-        display.prepend(div)
+    const removeBtn = div.querySelector('#removeBtn');
+    removeBtn.addEventListener('click', () => {
+        arryCart.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(arryCart));
+        location.reload();
+    });
 
-        document.querySelectorAll('.btn').forEach((btn) => {
-            const key = btn.getAttribute('data-key')
-            btn.addEventListener('click', () => {
-                let content = ref(database, `myDataInDB/${key}`);
-                remove(content)
-            }
-          )
-        })
-        
-        total = total + '+' + value.price
-        let totalSum = Math.round(eval(total) * 10) / 10
 
-        const dis = document.getElementById('dis');
-        dis.innerHTML = `Total price: $${totalSum}`
+    
+    display.prepend(div)
 
-       // dis.innerHTML = Math.round(eval(dis.innerHTML + '+' + value.price ) * 10 )/ 10
-})
-})
+    total = total + '+' + item.price  
+    console.log(total)
+    let totalSum = Math.round(eval(total) * 10) / 10
 
+    const dis = document.getElementById('dis');
+    dis.innerHTML = `Total price: $${totalSum}`
+
+
+    
+});
