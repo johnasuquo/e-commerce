@@ -1,14 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 
-import { 
-    getDatabase,
-    ref,
-    push, 
-    onValue, 
-    remove,
-    query,
-    limitToLast
- } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
 const display = document.getElementById('display');
 const cartText = document.getElementById('cartText');
@@ -17,17 +7,9 @@ const countDiv = document.getElementById('countDiv');
 const overlay = document.getElementById('overlay');
 const cartIma = document.getElementById('cartIma');
 
-
-
-const dataSettings = {
-    databaseURL: "https://shoppingstoredb-default-rtdb.europe-west1.firebasedatabase.app/",
-}
-
-const app = initializeApp(dataSettings);
-const database = getDatabase(app);
-const myDatabase = ref(database, 'myDataInDB')
-
 let countNumber = 0;
+
+let cartArray = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 const dashbordContent = [
 {
@@ -149,12 +131,14 @@ dashbordContent.forEach((item) => {
     
 
     div += `<div id='childDiv'>${image}
+        <div id='line'>
         <p id="pricePage">Price: $${price}   ${button}</p>
 
         <p id='desPage'>${description}</p>
         <div id='ratingPage'><div>${rating}${ratingIcon}</div>
         
         <div id='span'>${review} <n>Sold</n></div>
+        </div>
         </div>
     </div>`
     
@@ -183,9 +167,11 @@ button.forEach((btn, index) => {
             
             const selectedContent = dashbordContent[index]
 
-            push(myDatabase, selectedContent)
-          
+            cartArray.push(selectedContent)
 
+           localStorage.setItem('cartItems', JSON.stringify(cartArray));
+          
+            console.log(cartArray);
             
         }
         else {
