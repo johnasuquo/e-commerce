@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <style>
+        body{
+            color: rgb(7,213,7);
+        }
         #display{
             display: flex;
             flex-wrap: wrap;
+            color: black;
         }
         #divID{
             width: 170px;
             margin-right: 20px;
             margin-top: 20px;
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            
+            height: 250px;
             
         }
         #imageDiv img{
-            height: 170px;
+            height: 180px;
             width: 170px;
             
         }
@@ -26,21 +30,28 @@
             font-weight: 900;
             font-size: 15px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
         }
         #priceDiv div{
             width: 100px;
+            margin-left: 10px;
         }
         #desDiv{
             font-size: 13px;
+            margin-left: 10px;
         }
-        .btn{
+        #removeBtn{
             background-color: red;
             border: none;
             height: 20px;
             width: 25px;
-            margin-left: 30px;
             color: white;
             font-weight: 800;
+            margin-right: 15px;
+            margin-top: 8px;
         }
         #cal{
             margin-top: 20px;
@@ -59,6 +70,43 @@
             border-radius: 10px;
             margin-left: 20px;
         }
+
+        section{
+            color: black;
+        }
+
+@media(max-width:768px){
+    #display{
+        justify-content: center;
+        flex-direction: column;
+        background-color: rgb(7,213,7);
+        line-height: 1.2rem;
+        padding-bottom: 30px;
+    }
+    #divID{
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+        max-width: 270px;
+        background-color: white;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    #imageDiv img{
+    
+        width: 68%;
+        max-width: 250px;
+        margin:auto;
+        display: block;
+        margin-top: 10px;
+                
+}
+    section{
+        border: 2px solid rgb(7,213,7);
+        padding: 20px;
+        color: black;
+}
+}
 
     </style>
 </head>
