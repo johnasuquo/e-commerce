@@ -1,5 +1,3 @@
-
-
 const display = document.getElementById('display');
 const cartText = document.getElementById('cartText');
 const countDiv = document.getElementById('countDiv');
@@ -117,83 +115,111 @@ const dashbordContent = [
 ];
 
 const childOverlay = document.getElementById('childOverlay');
-let div = '';
+const searchInput = document.getElementById('search');
+let filteredContent = [...dashbordContent]; // Copy of original array
 
-dashbordContent.forEach((item) => {
-    let image = item.image;
-    let price = item.price;
-    let description = item.description;
-    let rating = item.rating;
-    let ratingIcon = "<img src='photos/star.png' id='rating'/>";
-    let button = "<button class='btn'>Add</button>";
-    let review = item.review;
-
+// Function to display products
+function displayProducts(productsToShow) {
+    let div = '';
     
+    productsToShow.forEach((item) => {
+        let image = item.image;
+        let price = item.price;
+        let description = item.description;
+        let rating = item.rating;
+        let ratingIcon = "<img src='photos/star.png' id='rating'/>";
+        let button = "<button class='btn'>Add</button>";
+        let review = item.review;
 
-    div += `<div id='childDiv'>${image}
-        <div id='line'>
-        <p id="pricePage">Price: $${price}   ${button}</p>
+        div += `<div id='childDiv'>${image}
+            <div id='line'>
+            <p id="pricePage">Price: $${price}   ${button}</p>
 
-        <p id='desPage'>${description}</p>
-        <div id='ratingPage'><div>${rating}${ratingIcon}</div>
-        
-        <div id='span'>${review} <n>Sold</n></div>
-        </div>
-        </div>
-    </div>`
-    
-    
-    
-})
-
-display.innerHTML = div
-
-const button = document.querySelectorAll('.btn');
-button.forEach((btn, index) => {
-
-    btn.addEventListener('click', () => {
-
-        
-        if (btn.innerHTML === 'Add') {
-            countNumber += 1;
-            btn.innerHTML = 'Added'
-            cartText.innerHTML = 'Item added to cart';
-            cartText.classList.add('cText');
-            setTimeout(() => {
-                cartText.innerHTML = '';
-                cartText.classList.remove('cText')
-            }, 3000)
-            countDiv.innerHTML = countNumber;
+            <p id='desPage'>${description}</p>
+            <div id='ratingPage'><div>${rating}${ratingIcon}</div>
             
-            const selectedContent = dashbordContent[index]
+            <div id='span'>${review} <n>Sold</n></div>
+            </div>
+            </div>
+        </div>`
+    });
 
-            cartArray.push(selectedContent)
+    if (productsToShow.length === 0) {
+        div = '<p style="text-align:center; padding:40px; color:#999; font-size:18px;">No products found. Try a different search term.</p>';
+    }
 
-           localStorage.setItem('cartItems', JSON.stringify(cartArray));
-          
-            console.log(cartArray);
-            
-        }
-        else {
-            btn.innerHTML = 'Add'
-            if (countNumber != 0) {
-                countNumber -=1
+    display.innerHTML = div;
+    
+    // Re-attach button event listeners after updating display
+    attachButtonListeners();
+}
+
+// Function to attach button listeners
+function attachButtonListeners() {
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            if (btn.innerHTML === 'Add') {
+                countNumber += 1;
+                btn.innerHTML = 'Added';
+                cartText.innerHTML = 'Item added to cart';
+                cartText.classList.add('cText');
+                setTimeout(() => {
+                    cartText.innerHTML = '';
+                    cartText.classList.remove('cText');
+                }, 3000);
+                countDiv.innerHTML = countNumber;
+                
+                // Get the correct product from filtered array
+                const selectedContent = filteredContent[index];
+                cartArray.push(selectedContent);
+                localStorage.setItem('cartItems', JSON.stringify(cartArray));
+                console.log(cartArray);
+            } else {
+                btn.innerHTML = 'Add';
+                if (countNumber != 0) {
+                    countNumber -= 1;
+                }
+                countDiv.innerHTML = countNumber;
             }
-            countDiv.innerHTML = countNumber
-        }
-        
-        if(countNumber === 0){
+            
+            if (countNumber === 0) {
                 countDiv.innerHTML = '';
-        }
-    })
-})
+            }
+        });
+    });
+}
+
+// Search functionality
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+    
+    if (searchTerm === '') {
+        // Show all products
+        filteredContent = [...dashbordContent];
+        displayProducts(dashbordContent);
+    } else {
+        // Filter products by description
+        filteredContent = dashbordContent.filter(item => 
+            item.description.toLowerCase().includes(searchTerm)
+        );
+        displayProducts(filteredContent);
+    }
+});
+
+// Initial display
+displayProducts(dashbordContent);
 
 
+
+
+
+
+
+//Event listeners
 cartIma.addEventListener('click', ()=>{
     window.location.href = "cart.html";
 })
-
-
 
 cartIma.addEventListener('dblclick', ()=>{
     
@@ -206,8 +232,7 @@ menuIma.addEventListener('click', ()=>{
     if(menuDiv.style.display === 'block'){
         menuDiv.style.display = 'none';
     }
-    else(
+    else{
         menuDiv.style.display = 'block'
-    )
-
+    }
 })
