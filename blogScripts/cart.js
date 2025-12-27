@@ -22,8 +22,8 @@ arryCart.forEach((item, index) => {
     const removeBtn = div.querySelector('#removeBtn');
     removeBtn.addEventListener('click', () => {
         arryCart.splice(index, 1);
-        localStorage.setItem('cartItems', JSON.stringify(arryCart));
         location.reload();
+        localStorage.setItem('cartItems', JSON.stringify(arryCart));
     });
 
 
